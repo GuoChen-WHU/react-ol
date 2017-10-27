@@ -1,0 +1,33 @@
+init:
+  - name: pkginfo
+
+dev:
+  - name: clean
+  - name: copy
+    files:
+      ./build/(0).ico: ./docs/assets/favicon.ico
+  - name: webpack
+    watch: true
+    entry: ./docs/index.js
+    template: ./docs/assets/index.html
+  - name: server
+  - name: browser-sync
+
+build:
+  - name: clean
+    target: ./dist
+  - name: webpack
+    entry: ./src/index.js
+    common:
+      disabled: true
+
+test:
+  - name: lint
+  - name: unit
+
+publish:
+  - name: shell
+    script:
+      - dn test
+      - dn build
+      - npm pu
