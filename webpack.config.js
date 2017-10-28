@@ -26,12 +26,13 @@ module.exports = function(configs, webpack, ctx) {
       },
     },
     {
-      ol: {
-        root: 'ol',
-        commonjs2: 'ol',
-        commonjs: 'ol',
-        amd: 'ol',
+      'prop-types': {
+        root: 'PropTypes',
+        commonjs2: 'prop-types',
+        commonjs: 'prop-types',
+        amd: 'prop-types',
       }
-    }
+    },
+    /^ol\/.+$/
   ];
 };
