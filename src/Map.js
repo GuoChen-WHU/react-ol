@@ -1,23 +1,45 @@
 import React, { Component } from 'react';
-import { number, bool } from 'prop-types';
-import Map from 'ol/Map';
+import { number, bool, string, instanceOf } from 'prop-types';
+import MapClass from 'ol/Map';
+import { findAllByType, invariant } from './utils';
 
-class MapComponent extends Component {
+class Map extends Component {
   static propTypes = {
+    id: string, // used to distinguish serveral maps in a page
     pixelRatio: number,
     loadTilesWhileAnimating: bool,
     loadTilesWhileInteracting: bool,
-    moveTolerance: number,
+    moveTolerance: number
   }
 
   static defaultProps = {
-    loadTilesWhileAnimating: false,
-    loadTilesWhileInteracting: false,
-    moveTolerance: 1
+    id: 'map'
+  }
+
+  static childContextTypes = {
+    map: instanceOf(MapClass)
+  }
+  
+  getChildContext() {
+    return {
+      map: this.map
+    };
+  }
+  
+  constructor(props) {
+    super(props);
+
+    // eslint-disable-next-line no-unused-vars
+    const { id, children, ...options } = props;
+    const views = findAllByType(children, 'View');
+    invariant(views.length === 1, 'Map component requires one and only one View component as a child');
+
+    this.map = new MapClass(options);
   }
 
   componentDidMount() {
-    
+    const { id } = this.props;
+    this.map.setTarget(id);
   }
 
   componentDidUpdate() {
@@ -25,8 +47,12 @@ class MapComponent extends Component {
   }
 
   render() {
-    return <div id="map"></div>
+    const { id, children } = this.props;
+
+    return <div id={id}>
+      {children}
+    </div>;
   }
 }
 
-export default MapComponent;
+export default Map;

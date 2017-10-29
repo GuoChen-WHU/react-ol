@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { Map } from 'react-ol';
+import { Map, View, Layer, Source } from 'react-ol';
+import './App.less';
 
 class App extends Component {
   render() {
     return (
-      <Map />
+      <Map>
+        <View center={[0, 0]} zoom={10} />
+        <Layer.Tile>
+          <Source.OSM />
+        </Layer.Tile>
+      </Map>
     );
   }
 }

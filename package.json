@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
+    "lodash.omit": "^4.5.0",
     "ol": "^4.4.2",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",

@@ -10,6 +10,7 @@ dev:
     watch: true
     entry: ./docs/index.js
     template: ./docs/assets/index.html
+    configFile: webpack.docs.js
   - name: server
   - name: browser-sync
 
